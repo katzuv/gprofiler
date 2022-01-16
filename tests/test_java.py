@@ -8,6 +8,7 @@ from pathlib import Path
 from threading import Event
 
 import pytest
+from flaky import flaky  # type: ignore
 from packaging.version import Version
 
 from gprofiler.profilers.java import JAVA_SAFEMODE_ALL, AsyncProfiledProcess, JavaProfiler, parse_jvm_version
@@ -27,6 +28,7 @@ def runtime() -> str:
     return "java"
 
 
+@flaky(max_runs=2)
 def test_async_profiler_already_running(application_pid, assert_collapsed, tmp_path, caplog):
     """
     Test we're able to restart async-profiler in case it's already running in the process and get results normally.
