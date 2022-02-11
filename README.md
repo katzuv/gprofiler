@@ -66,7 +66,7 @@ Profiling using eBPF incurs lower overhead & provides kernel & native stacks.
 ### PHP profiling options
 * `--php-mode phpspy`: Enable PHP profiling with phpspy.
 * `--no-php` or `--php-mode disabled`: Disable profilers for PHP.
-* `--php-proc-filter`: Process filter (`pgrep`) to select PHP processes for profiling (this is phpspy's `-P` option)
+* `--php-proc-filter`: Process filter (`pgrep`) to select PHP processes for profiling (this is phpspy's `-P` option).
 
 ### Ruby profiling options
 * `--no-ruby` or `--ruby-mode disabled`: Disable profilers for Ruby.
@@ -79,8 +79,8 @@ Profiling using eBPF incurs lower overhead & provides kernel & native stacks.
 ### System profiling options
 
 * `--perf-mode`: Controls the global perf strategy. Must be one of the following options:
-    * `fp` - Use Frame Pointers for the call graph
-    * `dwarf` - Use DWARF for the call graph (adds the `--call-graph dwarf` argument to the `perf` command)
+    * `fp` - Use Frame Pointers for the call graph.
+    * `dwarf` - Use DWARF for the call graph (adds the `--call-graph dwarf` argument to the `perf` command).
     * `smart` - Run both `fp` and `dwarf`, then choose the result with the highest average of stack frames count, per process.
     * `disabled` - Avoids running `perf` at all. See [perf-less mode](#perf-less-mode).
 
@@ -95,8 +95,8 @@ By default, gProfiler agent sends system metrics (CPU and RAM usage) and metadat
 The metadata includes system metadata like the kernel version and CPU count, and cloud metadata like the type of the instance you are running on.
 The metrics collection will not be enabled if the `--upload-results`/`-u` flag is not set.
 Otherwise, you can disable metrics and metadata by using the following parameters:
-* Use `--disable-metrics-collection` to disable metrics collection
-* Use `--disable-metadata-collection` to disable metadata collection
+* Use `--disable-metrics-collection` to disable metrics collection.
+* Use `--disable-metadata-collection` to disable metadata collection.
 
 ### Continuous mode
 gProfiler can be run in a continuous mode, profiling periodically, using the `--continuous`/`-c` flag.
@@ -172,26 +172,26 @@ helm show values .
 ## Running as an ECS (Elastic Container Service) Daemon service
 
 ### Creating the ECS Task Definition
-- Go to ECS, and [create a new task definition](https://console.aws.amazon.com/ecs/home?region=us-east-1#/taskDefinitions/create)
-- Choose EC2, and click `Next Step`
-- Scroll to the bottom of the page, and click `Configure via JSON` \
+- Go to ECS, and [create a new task definition](https://console.aws.amazon.com/ecs/home?region=us-east-1#/taskDefinitions/create).
+- Choose EC2, and click `Next Step`.
+- Scroll to the bottom of the page, and click `Configure via JSON`. \
 ![Configure via JSON button](https://user-images.githubusercontent.com/74833655/132983629-163fdb87-ec9a-4201-b557-e0ae441e2595.png)
 - Replace the JSON contents with the contents of the [gprofiler_task_definition.json](deploy/ecs/gprofiler_task_definition.json) file and **Make sure you change the following values**:
   - Replace `<TOKEN>` in the command line with your token you got from the [gProfiler Performance Studio](https://profiler.granulate.io/) site.
   - Replace `<SERVICE NAME>` in the command line with the service name you wish to use.
 - **Note** - if you wish to see the logs from the gProfiler service, be sure to follow [AWS's guide](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/using_awslogs.html#create_awslogs_loggroups)
   on how to auto-configure logging, or to set it up manually yourself.
-- Click `Save`
-- Click `Create`
+- Click `Save`.
+- Click `Create`.
 
 ### Deploying the gProfiler service
 
 * Go to your [ECS Clusters](https://console.aws.amazon.com/ecs/home?region=us-east-1#/clusters) and enter the relevant cluster
-* Click on `Services`, and choose `Create`
-* Choose the `EC2` launch type and the `granulate-gprofiler` task definition with the latest revision
-* Enter a service name
-* Choose the `DAEMON` service type
-* Click `Next step` until you reach the `Review` page, and then click `Create Service`
+* Click on `Services`, and choose `Create`.
+* Choose the `EC2` launch type and the `granulate-gprofiler` task definition with the latest revision.
+* Enter a service name.
+* Choose the `DAEMON` service type.
+* Click `Next step` until you reach the `Review` page, and then click `Create Service`.
 
 ## Running on an AWS Fargate service
 
@@ -234,8 +234,8 @@ Alternatively, you can download gProfiler in your `Dockerfile` to avoid having t
 ## Running as a docker-compose service
 You can run a gProfiler container with `docker-compose` by using the template file in [docker-compose.yml](deploy/docker-compose/docker-compose.yml).
 Start by replacing the `<TOKEN>` and `<SERVICE NAME>` with values in the `command` section -
-* `<TOKEN>` should be replaced with your personal token from the [gProfiler Performance Studio](https://profiler.granulate.io/) site (in the [Install Service](https://profiler.granulate.io/installation) section)
-* The `<SERVICE NAME>` should be replaced with whatever service name you wish to use
+* `<TOKEN>` should be replaced with your personal token from the [gProfiler Performance Studio](https://profiler.granulate.io/) site (in the [Install Service](https://profiler.granulate.io/installation) section).
+* The `<SERVICE NAME>` should be replaced with whatever service name you wish to use.
 
 Optionally, you can add more command line arguments to the `command` section. For example, if you wish to use the `py-spy` profiler, you could replace the command with `-cu --token "<TOKEN>" --service-name "<SERVICE NAME>" --python-mode pyspy`.
 
@@ -265,8 +265,8 @@ gcloud dataproc clusters create <CLUSTER NAME> \
   - Replace `<TOKEN>` in the command line with your token you got from the [gProfiler Performance Studio](https://profiler.granulate.io/installation) site.
   - Replace `<SERVICE NAME>` in the command line with the service name you wish to use.
   - Replace `<YOUR BUCKET>` with the bucket name you have uploaded the gProfiler initialization action script to.
-  - Replace `<CLUSTER NAME>` with the cluster name you wish to use
-  - Replace `<REGION>` with the region you wish to use
+  - Replace `<CLUSTER NAME>` with the cluster name you wish to use.
+  - Replace `<REGION>` with the region you wish to use.
 
 ### Debugging problems
 If you are experiencing issues with your gProfiler installation (such as no flamegraphs available in the [Performance Studio](https://profiler.granulate.io)
@@ -306,9 +306,9 @@ Alongside `perf`, gProfiler invokes runtime-specific profilers for processes bas
   * If eBPF is not available for whatever reason, py-spy is used.
 * PHP (Zend Engine), versions 7.0-8.0.
   * Uses [Granulate's fork](https://github.com/Granulate/phpspy/) of the phpspy project.
-* Ruby versions (versions 1.9.1 to 3.0.1)
+* Ruby versions (versions 1.9.1 to 3.0.1).
   * Uses [Granulate's fork](https://github.com/Granulate/rbspy) of the [rbspy](https://github.com/rbspy/rbspy) profiler.
-* NodeJS (version >= 10 for functioning `--perf-prof`):
+* NodeJS (version >= 10 for functioning `--perf-prof`).
   * Uses `perf inject --jit` and NodeJS's ability to generate jitdump files. See [NodeJS profiling options](#nodejs-profiling-options).
 
 The runtime-specific profilers produce stack traces that include runtime information (i.e, stacks of Java/Python functions), unlike `perf` which produces native stacks of the JVM / CPython interpreter.
@@ -348,8 +348,8 @@ Note: this process builds from source all of the profilers used by gProfiler. It
 
 # Contribute
 We welcome all feedback and suggestion through Github Issues:
-* [Submit bugs and feature requests](https://github.com/granulate/gprofiler/issues)
-* Upvote [popular feature requests](https://github.com/granulate/gprofiler/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement+sort%3Areactions-%2B1-desc+)
+* [Submit bugs and feature requests](https://github.com/granulate/gprofiler/issues).
+* Upvote [popular feature requests](https://github.com/granulate/gprofiler/issues?q=is%3Aopen+is%3Aissue+label%3Aenhancement+sort%3Areactions-%2B1-desc+).
 
 ## Releasing a new version
 1. Update `__version__` in `__init__.py`.
@@ -362,8 +362,8 @@ We recommend going through our [contribution guide](https://github.com/granulate
 * [py-spy](https://github.com/benfred/py-spy) by [Ben Frederickson](https://github.com/benfred). See [our fork](https://github.com/Granulate/py-spy).
 * [bcc](https://github.com/iovisor/bcc) (for PyPerf) by the IO Visor project. See [our fork](https://github.com/Granulate/bcc).
 * [phpspy](https://github.com/adsr/phpspy) by [Adam Saponara](https://github.com/adsr). See [our fork](https://github.com/Granulate/phpspy).
-* [rbspy](https://github.com/rbspy/rbspy) by the rbspy project. See [our fork](https://github.com/Granulate/rbspy)
+* [rbspy](https://github.com/rbspy/rbspy) by the rbspy project. See [our fork](https://github.com/Granulate/rbspy).
 
 # Footnotes
 
-<a name="perf-native">1</a>: To profile native programs that were compiled without frame pointers, make sure you use the `--perf-mode smart` (which is the default). Read more about it in the [Profiling options](#profiling-options) section[↩](#a1)
+<a name="perf-native">1</a>: To profile native programs that were compiled without frame pointers, make sure you use the `--perf-mode smart` (which is the default). Read more about it in the [Profiling options](#profiling-options) section[↩](#a1).
